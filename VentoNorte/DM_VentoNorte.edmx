@@ -1,0 +1,524 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VentoNorteModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="VentoNorteModelStoreContainer">
+          <EntitySet Name="Clientes" EntityType="VentoNorteModel.Store.Clientes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Fornecedores" EntityType="VentoNorteModel.Store.Fornecedores" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Grupos" EntityType="VentoNorteModel.Store.Grupos" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Pedidos" EntityType="VentoNorteModel.Store.Pedidos" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PedidosItens" EntityType="VentoNorteModel.Store.PedidosItens" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Produtos" EntityType="VentoNorteModel.Store.Produtos" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Transportadoras" EntityType="VentoNorteModel.Store.Transportadoras" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Pedidos_Clientes" Association="VentoNorteModel.Store.FK_Pedidos_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Pedidos" EntitySet="Pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedidos_Transportadoras" Association="VentoNorteModel.Store.FK_Pedidos_Transportadoras">
+            <End Role="Transportadoras" EntitySet="Transportadoras" />
+            <End Role="Pedidos" EntitySet="Pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedidosItens_Pedidos" Association="VentoNorteModel.Store.FK_PedidosItens_Pedidos">
+            <End Role="Pedidos" EntitySet="Pedidos" />
+            <End Role="PedidosItens" EntitySet="PedidosItens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedidosItens_Produtos" Association="VentoNorteModel.Store.FK_PedidosItens_Produtos">
+            <End Role="Produtos" EntitySet="Produtos" />
+            <End Role="PedidosItens" EntitySet="PedidosItens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Produtos_Fornecedores" Association="VentoNorteModel.Store.FK_Produtos_Fornecedores">
+            <End Role="Fornecedores" EntitySet="Fornecedores" />
+            <End Role="Produtos" EntitySet="Produtos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Produtos_Grupos" Association="VentoNorteModel.Store.FK_Produtos_Grupos">
+            <End Role="Grupos" EntitySet="Grupos" />
+            <End Role="Produtos" EntitySet="Produtos" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="ClienteID" />
+          </Key>
+          <Property Name="ClienteID" Type="nchar" Nullable="false" MaxLength="5" />
+          <Property Name="ClienteNome" Type="nvarchar" Nullable="false" MaxLength="40" />
+          <Property Name="ClienteContato" Type="nvarchar" MaxLength="30" />
+          <Property Name="ClienteCargo" Type="nvarchar" MaxLength="30" />
+          <Property Name="ClienteEndereco" Type="nvarchar" MaxLength="60" />
+          <Property Name="ClienteCidade" Type="nvarchar" MaxLength="15" />
+          <Property Name="ClienteRegiao" Type="nvarchar" MaxLength="15" />
+          <Property Name="ClienteCEP" Type="nvarchar" MaxLength="10" />
+          <Property Name="ClientePais" Type="nvarchar" MaxLength="15" />
+          <Property Name="ClienteFone" Type="nvarchar" MaxLength="24" />
+          <Property Name="ClienteFax" Type="nvarchar" MaxLength="24" />
+        </EntityType>
+        <EntityType Name="Fornecedores">
+          <Key>
+            <PropertyRef Name="FornID" />
+          </Key>
+          <Property Name="FornID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FornNome" Type="nvarchar" Nullable="false" MaxLength="40" />
+          <Property Name="FornContato" Type="nvarchar" MaxLength="30" />
+          <Property Name="FornCargo" Type="nvarchar" MaxLength="30" />
+          <Property Name="FornEndereco" Type="nvarchar" MaxLength="60" />
+          <Property Name="FornCidade" Type="nvarchar" MaxLength="15" />
+          <Property Name="FornRegiao" Type="nvarchar" MaxLength="15" />
+          <Property Name="FornCEP" Type="nvarchar" MaxLength="10" />
+          <Property Name="FornPais" Type="nvarchar" MaxLength="15" />
+          <Property Name="FornFone" Type="nvarchar" MaxLength="24" />
+          <Property Name="FornFax" Type="nvarchar" MaxLength="24" />
+          <Property Name="FornHomePage" Type="ntext" />
+        </EntityType>
+        <EntityType Name="Grupos">
+          <Key>
+            <PropertyRef Name="GrupoID" />
+          </Key>
+          <Property Name="GrupoID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="GrupoNome" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="GrupoObservacao" Type="varchar(max)" />
+          <Property Name="GrupoFoto" Type="image" />
+        </EntityType>
+        <EntityType Name="Pedidos">
+          <Key>
+            <PropertyRef Name="PedidoID" />
+          </Key>
+          <Property Name="PedidoID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ClienteID" Type="nchar" MaxLength="5" />
+          <Property Name="PedidoData" Type="datetime" />
+          <Property Name="PedidoDataEnvio" Type="datetime" />
+          <Property Name="TranspID" Type="int" />
+          <Property Name="PedidoFrete" Type="money" />
+        </EntityType>
+        <EntityType Name="PedidosItens">
+          <Key>
+            <PropertyRef Name="PedidoID" />
+            <PropertyRef Name="ProdID" />
+          </Key>
+          <Property Name="PedidoID" Type="int" Nullable="false" />
+          <Property Name="ProdID" Type="int" Nullable="false" />
+          <Property Name="ItemPreco" Type="money" Nullable="false" />
+          <Property Name="ItemQuantidade" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Produtos">
+          <Key>
+            <PropertyRef Name="ProdID" />
+          </Key>
+          <Property Name="ProdID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProdName" Type="nvarchar" Nullable="false" MaxLength="40" />
+          <Property Name="FornID" Type="int" />
+          <Property Name="GrupoID" Type="int" />
+          <Property Name="ProdPreco" Type="money" />
+          <Property Name="ProdEstoque" Type="smallint" />
+          <Property Name="ProdDescontinuado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transportadoras">
+          <Key>
+            <PropertyRef Name="TransID" />
+          </Key>
+          <Property Name="TransID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TransNome" Type="nvarchar" Nullable="false" MaxLength="40" />
+          <Property Name="TransFone" Type="nvarchar" MaxLength="24" />
+        </EntityType>
+        <Association Name="FK_Pedidos_Clientes">
+          <End Role="Clientes" Type="VentoNorteModel.Store.Clientes" Multiplicity="0..1" />
+          <End Role="Pedidos" Type="VentoNorteModel.Store.Pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="ClienteID" />
+            </Principal>
+            <Dependent Role="Pedidos">
+              <PropertyRef Name="ClienteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedidos_Transportadoras">
+          <End Role="Transportadoras" Type="VentoNorteModel.Store.Transportadoras" Multiplicity="0..1" />
+          <End Role="Pedidos" Type="VentoNorteModel.Store.Pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transportadoras">
+              <PropertyRef Name="TransID" />
+            </Principal>
+            <Dependent Role="Pedidos">
+              <PropertyRef Name="TranspID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedidosItens_Pedidos">
+          <End Role="Pedidos" Type="VentoNorteModel.Store.Pedidos" Multiplicity="1" />
+          <End Role="PedidosItens" Type="VentoNorteModel.Store.PedidosItens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedidos">
+              <PropertyRef Name="PedidoID" />
+            </Principal>
+            <Dependent Role="PedidosItens">
+              <PropertyRef Name="PedidoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedidosItens_Produtos">
+          <End Role="Produtos" Type="VentoNorteModel.Store.Produtos" Multiplicity="1" />
+          <End Role="PedidosItens" Type="VentoNorteModel.Store.PedidosItens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produtos">
+              <PropertyRef Name="ProdID" />
+            </Principal>
+            <Dependent Role="PedidosItens">
+              <PropertyRef Name="ProdID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Produtos_Fornecedores">
+          <End Role="Fornecedores" Type="VentoNorteModel.Store.Fornecedores" Multiplicity="0..1" />
+          <End Role="Produtos" Type="VentoNorteModel.Store.Produtos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fornecedores">
+              <PropertyRef Name="FornID" />
+            </Principal>
+            <Dependent Role="Produtos">
+              <PropertyRef Name="FornID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Produtos_Grupos">
+          <End Role="Grupos" Type="VentoNorteModel.Store.Grupos" Multiplicity="0..1" />
+          <End Role="Produtos" Type="VentoNorteModel.Store.Produtos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupos">
+              <PropertyRef Name="GrupoID" />
+            </Principal>
+            <Dependent Role="Produtos">
+              <PropertyRef Name="GrupoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VentoNorteModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="VentoNorteEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clientes" EntityType="VentoNorteModel.Clientes" />
+          <EntitySet Name="Fornecedores" EntityType="VentoNorteModel.Fornecedores" />
+          <EntitySet Name="Grupos" EntityType="VentoNorteModel.Grupos" />
+          <EntitySet Name="Pedidos" EntityType="VentoNorteModel.Pedidos" />
+          <EntitySet Name="PedidosItens" EntityType="VentoNorteModel.PedidosItens" />
+          <EntitySet Name="Produtos" EntityType="VentoNorteModel.Produtos" />
+          <EntitySet Name="Transportadoras" EntityType="VentoNorteModel.Transportadoras" />
+          <AssociationSet Name="FK_Pedidos_Clientes" Association="VentoNorteModel.FK_Pedidos_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Pedidos" EntitySet="Pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Produtos_Fornecedores" Association="VentoNorteModel.FK_Produtos_Fornecedores">
+            <End Role="Fornecedores" EntitySet="Fornecedores" />
+            <End Role="Produtos" EntitySet="Produtos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Produtos_Grupos" Association="VentoNorteModel.FK_Produtos_Grupos">
+            <End Role="Grupos" EntitySet="Grupos" />
+            <End Role="Produtos" EntitySet="Produtos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedidos_Transportadoras" Association="VentoNorteModel.FK_Pedidos_Transportadoras">
+            <End Role="Transportadoras" EntitySet="Transportadoras" />
+            <End Role="Pedidos" EntitySet="Pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedidosItens_Pedidos" Association="VentoNorteModel.FK_PedidosItens_Pedidos">
+            <End Role="Pedidos" EntitySet="Pedidos" />
+            <End Role="PedidosItens" EntitySet="PedidosItens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedidosItens_Produtos" Association="VentoNorteModel.FK_PedidosItens_Produtos">
+            <End Role="Produtos" EntitySet="Produtos" />
+            <End Role="PedidosItens" EntitySet="PedidosItens" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="ClienteID" />
+          </Key>
+          <Property Name="ClienteID" Type="String" Nullable="false" MaxLength="5" Unicode="true" FixedLength="true" />
+          <Property Name="ClienteNome" Type="String" Nullable="false" MaxLength="40" Unicode="true" FixedLength="false" />
+          <Property Name="ClienteContato" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="ClienteCargo" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="ClienteEndereco" Type="String" MaxLength="60" Unicode="true" FixedLength="false" />
+          <Property Name="ClienteCidade" Type="String" MaxLength="15" Unicode="true" FixedLength="false" />
+          <Property Name="ClienteRegiao" Type="String" MaxLength="15" Unicode="true" FixedLength="false" />
+          <Property Name="ClienteCEP" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="ClientePais" Type="String" MaxLength="15" Unicode="true" FixedLength="false" />
+          <Property Name="ClienteFone" Type="String" MaxLength="24" Unicode="true" FixedLength="false" />
+          <Property Name="ClienteFax" Type="String" MaxLength="24" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Pedidos" Relationship="VentoNorteModel.FK_Pedidos_Clientes" FromRole="Clientes" ToRole="Pedidos" />
+        </EntityType>
+        <EntityType Name="Fornecedores">
+          <Key>
+            <PropertyRef Name="FornID" />
+          </Key>
+          <Property Name="FornID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FornNome" Type="String" Nullable="false" MaxLength="40" Unicode="true" FixedLength="false" />
+          <Property Name="FornContato" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="FornCargo" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="FornEndereco" Type="String" MaxLength="60" Unicode="true" FixedLength="false" />
+          <Property Name="FornCidade" Type="String" MaxLength="15" Unicode="true" FixedLength="false" />
+          <Property Name="FornRegiao" Type="String" MaxLength="15" Unicode="true" FixedLength="false" />
+          <Property Name="FornCEP" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="FornPais" Type="String" MaxLength="15" Unicode="true" FixedLength="false" />
+          <Property Name="FornFone" Type="String" MaxLength="24" Unicode="true" FixedLength="false" />
+          <Property Name="FornFax" Type="String" MaxLength="24" Unicode="true" FixedLength="false" />
+          <Property Name="FornHomePage" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Produtos" Relationship="VentoNorteModel.FK_Produtos_Fornecedores" FromRole="Fornecedores" ToRole="Produtos" />
+        </EntityType>
+        <EntityType Name="Grupos">
+          <Key>
+            <PropertyRef Name="GrupoID" />
+          </Key>
+          <Property Name="GrupoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GrupoNome" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="GrupoObservacao" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="GrupoFoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Produtos" Relationship="VentoNorteModel.FK_Produtos_Grupos" FromRole="Grupos" ToRole="Produtos" />
+        </EntityType>
+        <EntityType Name="Pedidos">
+          <Key>
+            <PropertyRef Name="PedidoID" />
+          </Key>
+          <Property Name="PedidoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClienteID" Type="String" MaxLength="5" Unicode="true" FixedLength="true" />
+          <Property Name="PedidoData" Type="DateTime" />
+          <Property Name="PedidoDataEnvio" Type="DateTime" />
+          <Property Name="TranspID" Type="Int32" />
+          <Property Name="PedidoFrete" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Clientes" Relationship="VentoNorteModel.FK_Pedidos_Clientes" FromRole="Pedidos" ToRole="Clientes" />
+          <NavigationProperty Name="Transportadoras" Relationship="VentoNorteModel.FK_Pedidos_Transportadoras" FromRole="Pedidos" ToRole="Transportadoras" />
+          <NavigationProperty Name="PedidosItens" Relationship="VentoNorteModel.FK_PedidosItens_Pedidos" FromRole="Pedidos" ToRole="PedidosItens" />
+        </EntityType>
+        <EntityType Name="PedidosItens">
+          <Key>
+            <PropertyRef Name="PedidoID" />
+            <PropertyRef Name="ProdID" />
+          </Key>
+          <Property Name="PedidoID" Type="Int32" Nullable="false" />
+          <Property Name="ProdID" Type="Int32" Nullable="false" />
+          <Property Name="ItemPreco" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="ItemQuantidade" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Pedidos" Relationship="VentoNorteModel.FK_PedidosItens_Pedidos" FromRole="PedidosItens" ToRole="Pedidos" />
+          <NavigationProperty Name="Produtos" Relationship="VentoNorteModel.FK_PedidosItens_Produtos" FromRole="PedidosItens" ToRole="Produtos" />
+        </EntityType>
+        <EntityType Name="Produtos">
+          <Key>
+            <PropertyRef Name="ProdID" />
+          </Key>
+          <Property Name="ProdID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProdName" Type="String" Nullable="false" MaxLength="40" Unicode="true" FixedLength="false" />
+          <Property Name="FornID" Type="Int32" />
+          <Property Name="GrupoID" Type="Int32" />
+          <Property Name="ProdPreco" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ProdEstoque" Type="Int16" />
+          <Property Name="ProdDescontinuado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Fornecedores" Relationship="VentoNorteModel.FK_Produtos_Fornecedores" FromRole="Produtos" ToRole="Fornecedores" />
+          <NavigationProperty Name="Grupos" Relationship="VentoNorteModel.FK_Produtos_Grupos" FromRole="Produtos" ToRole="Grupos" />
+          <NavigationProperty Name="PedidosItens" Relationship="VentoNorteModel.FK_PedidosItens_Produtos" FromRole="Produtos" ToRole="PedidosItens" />
+        </EntityType>
+        <EntityType Name="Transportadoras">
+          <Key>
+            <PropertyRef Name="TransID" />
+          </Key>
+          <Property Name="TransID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransNome" Type="String" Nullable="false" MaxLength="40" Unicode="true" FixedLength="false" />
+          <Property Name="TransFone" Type="String" MaxLength="24" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Pedidos" Relationship="VentoNorteModel.FK_Pedidos_Transportadoras" FromRole="Transportadoras" ToRole="Pedidos" />
+        </EntityType>
+        <Association Name="FK_Pedidos_Clientes">
+          <End Role="Clientes" Type="VentoNorteModel.Clientes" Multiplicity="0..1" />
+          <End Role="Pedidos" Type="VentoNorteModel.Pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="ClienteID" />
+            </Principal>
+            <Dependent Role="Pedidos">
+              <PropertyRef Name="ClienteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Produtos_Fornecedores">
+          <End Role="Fornecedores" Type="VentoNorteModel.Fornecedores" Multiplicity="0..1" />
+          <End Role="Produtos" Type="VentoNorteModel.Produtos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fornecedores">
+              <PropertyRef Name="FornID" />
+            </Principal>
+            <Dependent Role="Produtos">
+              <PropertyRef Name="FornID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Produtos_Grupos">
+          <End Role="Grupos" Type="VentoNorteModel.Grupos" Multiplicity="0..1" />
+          <End Role="Produtos" Type="VentoNorteModel.Produtos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupos">
+              <PropertyRef Name="GrupoID" />
+            </Principal>
+            <Dependent Role="Produtos">
+              <PropertyRef Name="GrupoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedidos_Transportadoras">
+          <End Role="Transportadoras" Type="VentoNorteModel.Transportadoras" Multiplicity="0..1" />
+          <End Role="Pedidos" Type="VentoNorteModel.Pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transportadoras">
+              <PropertyRef Name="TransID" />
+            </Principal>
+            <Dependent Role="Pedidos">
+              <PropertyRef Name="TranspID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedidosItens_Pedidos">
+          <End Role="Pedidos" Type="VentoNorteModel.Pedidos" Multiplicity="1" />
+          <End Role="PedidosItens" Type="VentoNorteModel.PedidosItens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedidos">
+              <PropertyRef Name="PedidoID" />
+            </Principal>
+            <Dependent Role="PedidosItens">
+              <PropertyRef Name="PedidoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedidosItens_Produtos">
+          <End Role="Produtos" Type="VentoNorteModel.Produtos" Multiplicity="1" />
+          <End Role="PedidosItens" Type="VentoNorteModel.PedidosItens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produtos">
+              <PropertyRef Name="ProdID" />
+            </Principal>
+            <Dependent Role="PedidosItens">
+              <PropertyRef Name="ProdID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VentoNorteModelStoreContainer" CdmEntityContainer="VentoNorteEntities">
+          <EntitySetMapping Name="Clientes"><EntityTypeMapping TypeName="VentoNorteModel.Clientes"><MappingFragment StoreEntitySet="Clientes">
+            <ScalarProperty Name="ClienteID" ColumnName="ClienteID" />
+            <ScalarProperty Name="ClienteNome" ColumnName="ClienteNome" />
+            <ScalarProperty Name="ClienteContato" ColumnName="ClienteContato" />
+            <ScalarProperty Name="ClienteCargo" ColumnName="ClienteCargo" />
+            <ScalarProperty Name="ClienteEndereco" ColumnName="ClienteEndereco" />
+            <ScalarProperty Name="ClienteCidade" ColumnName="ClienteCidade" />
+            <ScalarProperty Name="ClienteRegiao" ColumnName="ClienteRegiao" />
+            <ScalarProperty Name="ClienteCEP" ColumnName="ClienteCEP" />
+            <ScalarProperty Name="ClientePais" ColumnName="ClientePais" />
+            <ScalarProperty Name="ClienteFone" ColumnName="ClienteFone" />
+            <ScalarProperty Name="ClienteFax" ColumnName="ClienteFax" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Fornecedores"><EntityTypeMapping TypeName="VentoNorteModel.Fornecedores"><MappingFragment StoreEntitySet="Fornecedores">
+            <ScalarProperty Name="FornID" ColumnName="FornID" />
+            <ScalarProperty Name="FornNome" ColumnName="FornNome" />
+            <ScalarProperty Name="FornContato" ColumnName="FornContato" />
+            <ScalarProperty Name="FornCargo" ColumnName="FornCargo" />
+            <ScalarProperty Name="FornEndereco" ColumnName="FornEndereco" />
+            <ScalarProperty Name="FornCidade" ColumnName="FornCidade" />
+            <ScalarProperty Name="FornRegiao" ColumnName="FornRegiao" />
+            <ScalarProperty Name="FornCEP" ColumnName="FornCEP" />
+            <ScalarProperty Name="FornPais" ColumnName="FornPais" />
+            <ScalarProperty Name="FornFone" ColumnName="FornFone" />
+            <ScalarProperty Name="FornFax" ColumnName="FornFax" />
+            <ScalarProperty Name="FornHomePage" ColumnName="FornHomePage" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Grupos"><EntityTypeMapping TypeName="VentoNorteModel.Grupos"><MappingFragment StoreEntitySet="Grupos">
+            <ScalarProperty Name="GrupoID" ColumnName="GrupoID" />
+            <ScalarProperty Name="GrupoNome" ColumnName="GrupoNome" />
+            <ScalarProperty Name="GrupoObservacao" ColumnName="GrupoObservacao" />
+            <ScalarProperty Name="GrupoFoto" ColumnName="GrupoFoto" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Pedidos"><EntityTypeMapping TypeName="VentoNorteModel.Pedidos"><MappingFragment StoreEntitySet="Pedidos">
+            <ScalarProperty Name="PedidoID" ColumnName="PedidoID" />
+            <ScalarProperty Name="ClienteID" ColumnName="ClienteID" />
+            <ScalarProperty Name="PedidoData" ColumnName="PedidoData" />
+            <ScalarProperty Name="PedidoDataEnvio" ColumnName="PedidoDataEnvio" />
+            <ScalarProperty Name="TranspID" ColumnName="TranspID" />
+            <ScalarProperty Name="PedidoFrete" ColumnName="PedidoFrete" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="PedidosItens"><EntityTypeMapping TypeName="VentoNorteModel.PedidosItens"><MappingFragment StoreEntitySet="PedidosItens">
+            <ScalarProperty Name="PedidoID" ColumnName="PedidoID" />
+            <ScalarProperty Name="ProdID" ColumnName="ProdID" />
+            <ScalarProperty Name="ItemPreco" ColumnName="ItemPreco" />
+            <ScalarProperty Name="ItemQuantidade" ColumnName="ItemQuantidade" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Produtos"><EntityTypeMapping TypeName="VentoNorteModel.Produtos"><MappingFragment StoreEntitySet="Produtos">
+            <ScalarProperty Name="ProdID" ColumnName="ProdID" />
+            <ScalarProperty Name="ProdName" ColumnName="ProdName" />
+            <ScalarProperty Name="FornID" ColumnName="FornID" />
+            <ScalarProperty Name="GrupoID" ColumnName="GrupoID" />
+            <ScalarProperty Name="ProdPreco" ColumnName="ProdPreco" />
+            <ScalarProperty Name="ProdEstoque" ColumnName="ProdEstoque" />
+            <ScalarProperty Name="ProdDescontinuado" ColumnName="ProdDescontinuado" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Transportadoras"><EntityTypeMapping TypeName="VentoNorteModel.Transportadoras"><MappingFragment StoreEntitySet="Transportadoras">
+            <ScalarProperty Name="TransID" ColumnName="TransID" />
+            <ScalarProperty Name="TransNome" ColumnName="TransNome" />
+            <ScalarProperty Name="TransFone" ColumnName="TransFone" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="DM_VentoNorte" ZoomLevel="68">
+        <EntityTypeShape EntityType="VentoNorteModel.Clientes" Width="1.5" PointX="1.5" PointY="0.5" Height="3.3263964843749996" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentoNorteModel.Fornecedores" Width="1.5" PointX="9" PointY="0.75" Height="3.5186979166666656" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentoNorteModel.Grupos" Width="1.5" PointX="9" PointY="4.75" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentoNorteModel.Pedidos" Width="1.5" PointX="3.875" PointY="0.625" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentoNorteModel.PedidosItens" Width="1.5" PointX="6.375" PointY="0.625" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentoNorteModel.Produtos" Width="1.5" PointX="6.375" PointY="3.625" Height="2.9417936197916661" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentoNorteModel.Transportadoras" Width="1.5" PointX="1.5" PointY="4.5" Height="1.7879850260416674" IsExpanded="true" />
+        <AssociationConnector Association="VentoNorteModel.FK_Pedidos_Clientes" ManuallyRouted="false">
+          <ConnectorPoint PointX="3" PointY="1.9997460937499998" />
+          <ConnectorPoint PointX="3.875" PointY="1.9997460937499998" />
+        </AssociationConnector>
+        <AssociationConnector Association="VentoNorteModel.FK_Produtos_Fornecedores" ManuallyRouted="false">
+          <ConnectorPoint PointX="9" PointY="3.9468489583333328" />
+          <ConnectorPoint PointX="7.875" PointY="3.9468489583333328" />
+        </AssociationConnector>
+        <AssociationConnector Association="VentoNorteModel.FK_Produtos_Grupos" ManuallyRouted="false">
+          <ConnectorPoint PointX="9" PointY="5.6583968098958328" />
+          <ConnectorPoint PointX="7.875" PointY="5.6583968098958328" />
+        </AssociationConnector>
+        <AssociationConnector Association="VentoNorteModel.FK_Pedidos_Transportadoras" ManuallyRouted="false">
+          <ConnectorPoint PointX="3" PointY="5.3939925130208337" />
+          <ConnectorPoint PointX="4.625" PointY="5.3939925130208337" />
+          <ConnectorPoint PointX="4.625" PointY="3.3744921874999996" />
+        </AssociationConnector>
+        <AssociationConnector Association="VentoNorteModel.FK_PedidosItens_Pedidos" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.375" PointY="1.7112939453124998" />
+          <ConnectorPoint PointX="6.375" PointY="1.7112939453124998" />
+        </AssociationConnector>
+        <AssociationConnector Association="VentoNorteModel.FK_PedidosItens_Produtos" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.125" PointY="3.625" />
+          <ConnectorPoint PointX="7.125" PointY="2.7975878906249996" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
