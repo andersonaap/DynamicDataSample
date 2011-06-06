@@ -1,0 +1,49 @@
+﻿<%@ Master Language="C#" CodeBehind="Site.master.cs" Inherits="WebApplication.Site" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head runat="server">
+    <title>Dynamic Data Site</title>
+    <link href="~/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery-1.4.4.min.js" type="text/javascript"></script>
+    <asp:ContentPlaceHolder id="head" runat="server"></asp:ContentPlaceHolder>
+</head>
+<body>
+    <div class="page">
+
+        <div id="header">
+            <div id="title">
+                <h1>Dynamic Data Site</h1>
+            </div>
+
+            <div id="logindisplay">
+               [ <a href="/Account/LogOn">Log On</a> ]<%-- @Html.Partial("_LogOnPartial")--%>
+            </div>
+
+            <div id="menucontainer">
+
+                <ul id="menu">
+                    <li><%--@Html.ActionLink("Home", "Index", "Home")--%><a href="/">Home</a></li>
+                    <li><%--@Html.ActionLink("About", "About", "Home")--%><a href="/Home/About">About</a></li>
+                </ul>
+
+            </div>
+        </div>
+        <form id="form1" runat="server">
+        <div id="main">
+            <%-- TODO: Enable partial rendering by setting the EnablePartialRendering attribute to "true" to provide a smoother browsing experience.
+                 Leaving partial rendering disabled will provide a better debugging experience while the application is in development. --%>
+            <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="false"/>
+        
+            <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+            <div id="footer">
+            </div>
+        </div>
+        </form>
+    </div>
+</body>
+</html>

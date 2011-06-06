@@ -1,0 +1,22 @@
+﻿@using System.Web.DynamicData
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h2>@ViewBag.Message</h2>
+<p>
+    To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
+    
+    <br/>
+    <a href="@Url.Content("~/WebForm1.aspx")">WebForm1.aspx</a>
+
+
+     <p>        Dynamic Data MVC, click a table below to view    </p>
+     <ul>
+     @foreach (MetaTable table in MetaModel.Default.Tables)
+     {
+        <li><a href="@table.GetActionPath("List")">@table.DisplayName</a></li> 
+     } 
+     </ul> 
+</p>
